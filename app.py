@@ -39,8 +39,21 @@ line_bot_api = LineBotApi('W1iFrhuHEPdo8z9ewYqvRKCyFjHWlrlqHkoaJ98nO7diOjgiBPlIr
 handler = WebhookHandler('d5cd857c17c8ff9466f3f7817a5980b8')
 line_bot_api.push_message('U6a9e45ef42f84e15883c1dd23c20badd',TextSendMessage(text='連接成功'))
 
-#############
-        
+# 監聽所有來自 /callback 的 Post Request
+@app.route("/callback", methods=['POST'])
+def callback():
+    # get X-Line-Signature header value
+    signature = request.headers['X-Line-Signature']
+    # get request body as text
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+    # handle webhook body
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        abort(400)
+    return 'OK'
+#################
 
 
 driver = webdriver.Chrome()
@@ -126,25 +139,7 @@ def get_result(original_html,search_ingredient):
         results.append(result)
     
     return top_recipes, results
-        
-        
-
-#############
-# 監聽所有來自 /callback 的 Post Request
-@app.route("/callback", methods=['POST'])
-def callback():
-    # get X-Line-Signature header value
-    signature = request.headers['X-Line-Signature']
-    # get request body as text
-    body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
-    # handle webhook body
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        abort(400)
-    return 'OK'
-
+#################
     
 def finding(ingredient):
     message = TextSendMessage(get_result(search(ingredient),ingredient))
