@@ -44,11 +44,9 @@ def callback():
         abort(400)
     return 'OK'
 
-def find_recipes(event):
-
     
-def find_recipes(event2):
-    ingre = event2.message.text
+def find_recipes(event):
+    ingre = event.message.text
     line_bot_api.reply_message(event.reply_token,  TextSendMessage(text ='查詢有關的食譜'))
     
 
@@ -58,7 +56,7 @@ def find_recipes(event2):
 def handle_message(event):
     msg = event.message.text
     if '找食譜' in msg:
-        find_recipes(event2)
+        find_recipes(event)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text ='找什麼呢?')
 
 @handler.add(PostbackEvent)
