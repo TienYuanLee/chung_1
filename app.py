@@ -154,12 +154,16 @@ def get_result(ingredient):
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    ingredient = event.message.text
-    message1 = TextSendMessage(text = ingredient)
-    message = get_result(ingredient)
-    message2 = TextSendMessage(text = message)
-    line_bot_api.reply_message(event.reply_token, [message1, message2])
-
+    try:
+        ingredient = event.message.text
+        message1 = TextSendMessage(text = ingredient)
+        message = get_result(ingredient)
+        message2 = TextSendMessage(text = message)
+        line_bot_api.reply_message(event.reply_token, [message1, message2])
+    except:
+        ingredient = event.message.text
+        message1 = TextSendMessage(text = ingredient + 'error')
+        line_bot_api.reply_message(event.reply_token, message1)
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
