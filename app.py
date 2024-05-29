@@ -158,7 +158,7 @@ def handle_message(event):
     message1 = TextSendMessage(text = ingredient)
     reci = get_result(ingredient)
     message2 = TextSendMessage(text = f'{reci}')
-    line_bot_api.reply_message(event.reply_token, [message1,message2])
+    line_bot_api.reply_message(event.reply_token, message1)
 
 
 if __name__ == "__main__":
