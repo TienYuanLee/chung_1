@@ -9,51 +9,51 @@ from linebot.exceptions import (
 from linebot.models import *
 
 
-# from time import sleep
-# from random import randint
-# import pandas as pd
-# from selenium import webdriver
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.common.keys import Keys
-# from bs4 import BeautifulSoup
-# import random
-# #======這裡是呼叫的檔案內容=====
-# from message import *
-# from new import *
-# from Function import *
-# #======這裡是呼叫的檔案內容=====
+from time import sleep
+from random import randint
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+import random
+#======這裡是呼叫的檔案內容=====
+from message import *
+from new import *
+from Function import *
+#======這裡是呼叫的檔案內容=====
 
-# #======python的函數庫==========
-# import tempfile, os
-# import datetime
-# import time
-# #======python的函數庫==========
+#======python的函數庫==========
+import tempfile, os
+import datetime
+import time
+#======python的函數庫==========
 
-# app = Flask(__name__)
-# static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
-# # Channel Access Token
-# line_bot_api = LineBotApi('W1iFrhuHEPdo8z9ewYqvRKCyFjHWlrlqHkoaJ98nO7diOjgiBPlIrPJqmGJhjj4mOVKNxhSLbW0AYvDc0WsAJZ7IymPR1rvvlP8jyXLwo6aZUyAtnkIhD5t15U5kLVX/qW94ubH5WSyhpPnhLvxzywdB04t89/1O/w1cDnyilFU=')
-# # Channel Secret
-# handler = WebhookHandler('d5cd857c17c8ff9466f3f7817a5980b8')
-# line_bot_api.push_message('U6a9e45ef42f84e15883c1dd23c20badd',TextSendMessage(text='連接成功'))
+app = Flask(__name__)
+static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
+# Channel Access Token
+line_bot_api = LineBotApi('W1iFrhuHEPdo8z9ewYqvRKCyFjHWlrlqHkoaJ98nO7diOjgiBPlIrPJqmGJhjj4mOVKNxhSLbW0AYvDc0WsAJZ7IymPR1rvvlP8jyXLwo6aZUyAtnkIhD5t15U5kLVX/qW94ubH5WSyhpPnhLvxzywdB04t89/1O/w1cDnyilFU=')
+# Channel Secret
+handler = WebhookHandler('d5cd857c17c8ff9466f3f7817a5980b8')
+line_bot_api.push_message('U6a9e45ef42f84e15883c1dd23c20badd',TextSendMessage(text='連接成功'))
 
-# # 監聽所有來自 /callback 的 Post Request
-# @app.route("/callback", methods=['POST'])
-# def callback():
-#     # get X-Line-Signature header value
-#     signature = request.headers['X-Line-Signature']
-#     # get request body as text
-#     body = request.get_data(as_text=True)
-#     app.logger.info("Request body: " + body)
-#     # handle webhook body
-#     try:
-#         handler.handle(body, signature)
-#     except InvalidSignatureError:
-#         abort(400)
-#     return 'OK'
-# #################
+# 監聽所有來自 /callback 的 Post Request
+@app.route("/callback", methods=['POST'])
+def callback():
+    # get X-Line-Signature header value
+    signature = request.headers['X-Line-Signature']
+    # get request body as text
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+    # handle webhook body
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        abort(400)
+    return 'OK'
+#################
 
 
 # #################
