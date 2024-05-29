@@ -170,8 +170,8 @@ def get_result(ingredient):
 
     soup = BeautifulSoup(original_html, "html.parser")
     recipe_list = []
-    while True:
-        recipe = soup.select('.browse-recipe-card')
+    for i in range(2): #可以改變翻頁次數，每頁有18道菜
+        recipes = soup.select('.browse-recipe-card')
         recipe_items = soup.find_all("li", class_="browse-recipe-item")
         for recipe in recipe_items:
             link_tag = recipe.find("a", class_="browse-recipe-link")
