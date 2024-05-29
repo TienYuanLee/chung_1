@@ -4,8 +4,8 @@ from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
 
 #TemplateSendMessage - ButtonsTemplate (按鈕介面訊息)
-def find_recipes():
-    message = Template
+def finding():
+    
 def buttons_message():
     message = TemplateSendMessage(
         alt_text='好消息來囉～',
@@ -35,27 +35,27 @@ def buttons_message():
     )
     return message
 
-#TemplateSendMessage - ConfirmTemplate(確認介面訊息)
-def Confirm_Template():
+# #TemplateSendMessage - ConfirmTemplate(確認介面訊息)
+# def Confirm_Template():
 
-    message = TemplateSendMessage(
-        alt_text='想吃甚麼呢?',
-        template=ConfirmTemplate(
-            text="想吃神麼呢",
-            actions=[
-                PostbackTemplateAction(
-                    label="查詢食譜",
-                    text="現在、立刻、馬上",
-                    data="會員註冊"
-                ),
-                MessageTemplateAction(
-                    label="新增食材",
-                    text="查詢其他功能"
-                )
-            ]
-        )
-    )
-    return message
+#     message = TemplateSendMessage(
+#         alt_text='想吃甚麼呢?',
+#         template=ConfirmTemplate(
+#             text="想吃神麼呢",
+#             actions=[
+#                 PostbackTemplateAction(
+#                     label="查詢食譜",
+#                     text="現在、立刻、馬上",
+#                     data="會員註冊"
+#                 ),
+#                 MessageTemplateAction(
+#                     label="新增食材",
+#                     text="查詢其他功能"
+#                 )
+#             ]
+#         )
+#     )
+#     return message
 
 #旋轉木馬按鈕訊息介面
 
