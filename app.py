@@ -55,7 +55,7 @@ def callback():
     return 'OK'
 #################
 
-driver = webdriver.Chrome()
+
 #################
 def get_result(ingredient):
     def progress_bar(percentage, length):  # 進度條
@@ -75,6 +75,7 @@ def get_result(ingredient):
     
 
     url = "https://icook.tw/"
+    driver = webdriver.Chrome()
     driver.get(url)
     sleep(2)
     search_box = driver.find_element(By.CLASS_NAME, "search-input")
