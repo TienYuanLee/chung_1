@@ -42,50 +42,71 @@ def callback():
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
+    for event in events:
+        if isinstance(event, MessageEvent):
+            if isinstance(event.message,TextMessage):
+                mtext = event.message.text
+                if mtext == '找食譜':
+                    find_recipes(event)
+                if mtext == '吃甚麼':
+                    whattoeat(event)
+                if mtext == '使用方法說明':
+                    howtouse(event)
+                    
     return 'OK'
 
-
-# 處理訊息
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    msg = event.message.text
-    if '找食譜' in msg:
-        message = find_recipes()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '吃甚麼' in msg:
+def find_recipes(event):
+    reply = []
+    message1 = TextSendMessage(text = '今天想要吃什麼呢？')
+    dish = event.message.text
+    reply.append(message1)
+    message2 = TextSendMessage(text = '查詢有關'+ dish +'的食譜')
+    reply.append(message2)
+    message3 = finding()
+    reply.append(message3)
+    
+    line_bot_api.reply_message(event.reply_token, reply)
+# # 處理訊息
+# @handler.add(MessageEvent, message=TextMessage)
+# def handle_message(event):
+#     msg = event.message.text
+#     if '找食譜' in msg:
+#         message = find_recipes()
+#         line_bot_api.reply_message(event.reply_token, message)
+#     elif '吃甚麼' in msg:
         
-    elif '最新活動訊息' in msg:
-        message = buttons_message()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '註冊會員' in msg:
-        message = Confirm_Template()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '旋轉木馬' in msg:
-        message = Carousel_Template()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '圖片畫廊' in msg:
-        message = test()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif '功能列表' in msg:
-        message = function_list()
-        line_bot_api.reply_message(event.reply_token, message)
-    else:
-        message = TextSendMessage(text=msg)
-        line_bot_api.reply_message(event.reply_token, message)
+#     elif '最新活動訊息' in msg:
+#         message = buttons_message()
+#         line_bot_api.reply_message(event.reply_token, message)
+#     elif '註冊會員' in msg:
+#         message = Confirm_Template()
+#         line_bot_api.reply_message(event.reply_token, message)
+#     elif '旋轉木馬' in msg:
+#         message = Carousel_Template()
+#         line_bot_api.reply_message(event.reply_token, message)
+#     elif '圖片畫廊' in msg:
+#         message = test()
+#         line_bot_api.reply_message(event.reply_token, message)
+#     elif '功能列表' in msg:
+#         message = function_list()
+#         line_bot_api.reply_message(event.reply_token, message)
+#     else:
+#         message = TextSendMessage(text=msg)
+#         line_bot_api.reply_message(event.reply_token, message)
 
-@handler.add(PostbackEvent)
-def handle_message(event):
-    print(event.postback.data)
+# @handler.add(PostbackEvent)
+# def handle_message(event):
+#     print(event.postback.data)
 
 
-@handler.add(MemberJoinedEvent)
-def welcome(event):
-    uid = event.joined.members[0].user_id
-    gid = event.source.group_id
-    profile = line_bot_api.get_group_member_profile(gid, uid)
-    name = profile.display_name
-    message = TextSendMessage(text=f'{name}歡迎加入')
-    line_bot_api.reply_message(event.reply_token, message)
+# @handler.add(MemberJoinedEvent)
+# def welcome(event):
+#     uid = event.joined.members[0].user_id
+#     gid = event.source.group_id
+#     profile = line_bot_api.get_group_member_profile(gid, uid)
+#     name = profile.display_name
+#     message = TextSendMessage(text=f'{name}歡迎加入')
+#     line_bot_api.reply_message(event.reply_token, message)
         
         
 import os
