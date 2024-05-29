@@ -49,6 +49,8 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     ingredient = event.message.text
+    def find():
+        return ingredient
     message1 = TextSendMessage(text = ingredient)
     try:
         message2 = finding()
