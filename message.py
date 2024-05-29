@@ -4,6 +4,8 @@ from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
 
 #TemplateSendMessage - ButtonsTemplate (按鈕介面訊息)
+def find_recipes():
+    message = Template
 def buttons_message():
     message = TemplateSendMessage(
         alt_text='好消息來囉～',
