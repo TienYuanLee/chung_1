@@ -51,8 +51,8 @@ def find_recipes(event):
     reply.append(message2)
     message2 = TextSendMessage(text = '查詢有關'+ dish +'的食譜')
     reply.append(message2)
-    message3 = finding()
-    reply.append(message3)
+    # message3 = finding()
+    # reply.append(message3)
 
     line_bot_api.reply_message(event.reply_token, reply)
     
