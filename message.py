@@ -14,6 +14,13 @@ from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 import random
 
+# from selenium import webdriver
+# from linebot.models import *
+# from flex_msg import *
+# from config import *
+# import time
+# import random
+# import string
 
 driver = webdriver.Chrome()
 
