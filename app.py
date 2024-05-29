@@ -146,7 +146,7 @@ def callback():
 
     
 def finding(ingredient):
-    message = TextSendMessage(get_result(search(ingredient),ingredient)
+    message = TextSendMessage(get_result(search(ingredient),ingredient))
     return message
     
 
