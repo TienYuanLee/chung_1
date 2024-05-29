@@ -49,9 +49,11 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    if '最新合作廠商' in msg:
-        message = imagemap_message()
+    if '找食譜' in msg:
+        message = find_recipes()
         line_bot_api.reply_message(event.reply_token, message)
+    elif '吃甚麼' in msg:
+        
     elif '最新活動訊息' in msg:
         message = buttons_message()
         line_bot_api.reply_message(event.reply_token, message)
