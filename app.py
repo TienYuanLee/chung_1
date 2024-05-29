@@ -158,7 +158,10 @@ def handle_message(event):
         ingredient = event.message.text
         message1 = TextSendMessage(text = ingredient)
         message = get_result(ingredient)
-        message2 = TextSendMessage(text = message)
+        try:
+            message2 = TextSendMessage(text = message)
+        except:
+            message2 = TextSendMessage(text = 'error')
         line_bot_api.reply_message(event.reply_token, [message1, message2])
     except:
         ingredient = event.message.text
