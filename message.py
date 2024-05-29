@@ -105,6 +105,6 @@ def finding():
     message = TextSendMessage(
         text = get_result(search(ingredient),ingredient)
     )
-    
+    return message
     
 #關於LINEBOT聊天內容範例
