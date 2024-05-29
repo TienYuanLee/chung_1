@@ -45,9 +45,9 @@ def callback():
     return 'OK'
 
     
-def find_recipes(event):
+def find_recipes():
     ingre = event.message.text
-    line_bot_api.reply_message(event.reply_token,  TextSendMessage(text ='查詢有關的食譜'))
+    return ingredient
     
 
 
