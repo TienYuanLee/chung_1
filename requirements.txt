@@ -2,3 +2,6 @@ line-bot-sdk
 flask
 gunicorn
 pandas
+beautifulsoup4
+Requests
+selenium
