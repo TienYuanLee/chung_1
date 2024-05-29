@@ -55,10 +55,8 @@ def find_recipes(event):
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    if '找食譜' in msg:
-        
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text ='找什麼呢?'))
-        find_recipes(event)
+    message = finding()
+    line_bot_api.reply_message(event.reply_token, message)
         
 @handler.add(PostbackEvent)
 def handle_message(event):
