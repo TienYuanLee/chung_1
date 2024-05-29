@@ -54,7 +54,7 @@ def find_recipes(event):
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    msg = event.message.text
+    ingredient = event.message.text
     message = finding()
     line_bot_api.reply_message(event.reply_token, message)
         
