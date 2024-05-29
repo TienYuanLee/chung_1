@@ -1,4 +1,3 @@
-
 from flask import Flask, request, abort
 
 from linebot import (
@@ -42,26 +41,47 @@ def callback():
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
-        abort(400)  
+        abort(400)
     return 'OK'
 
 def find_recipes(event):
-    reply = []
-    dish = event.message.text
-    reply.append(message2)
-    message2 = TextSendMessage(text = '查詢有關'+ dish +'的食譜')
-    reply.append(message2)
-    # message3 = finding()
-    # reply.append(message3)
 
-    line_bot_api.reply_message(event.reply_token, reply)
     
-def keyword(event):
-    key = event.message.text
-    if '找食譜' in key:
-        line_bot_api.reply_message(event.reply_token, 
-                                   [key,
-                                    find_recipes(event)])
+def find_recipes(event2):
+    ingre = event2.message.text
+    line_bot_api.reply_message(event.reply_token,  TextSendMessage(text ='查詢有關的食譜'))
+    
+
+
+# 處理訊息
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    msg = event.message.text
+    if '找食譜' in msg:
+        find_recipes(event2)
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text ='找什麼呢?')
+
+@handler.add(PostbackEvent)
+def handle_message(event):
+    print(event.postback.data)
+
+
+@handler.add(MemberJoinedEvent)
+def welcome(event):
+    uid = event.joined.members[0].user_id
+    gid = event.source.group_id
+    profile = line_bot_api.get_group_member_profile(gid, uid)
+    name = profile.display_name
+    message = TextSendMessage(text=f'{name}歡迎加入')
+    line_bot_api.reply_message(event.reply_token, message)
+        
+        
+import os
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
+
+
         
 # # 處理訊息
 # @handler.add(MessageEvent, message=TextMessage)
@@ -106,7 +126,3 @@ def keyword(event):
 #     line_bot_api.reply_message(event.reply_token, message)
         
         
-import os
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
