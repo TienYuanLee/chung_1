@@ -1,3 +1,4 @@
+
 from flask import Flask, request, abort
 
 from linebot import (
@@ -41,31 +42,27 @@ def callback():
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
-        abort(400)
-    for event in events:
-        if isinstance(event, MessageEvent):
-            if isinstance(event.message,TextMessage):
-                mtext = event.message.text
-                if mtext == '找食譜':
-                    find_recipes(event)
-                if mtext == '吃甚麼':
-                    whattoeat(event)
-                if mtext == '使用方法說明':
-                    howtouse(event)
-                    
+        abort(400)  
     return 'OK'
 
 def find_recipes(event):
     reply = []
-    message1 = TextSendMessage(text = '今天想要吃什麼呢？')
     dish = event.message.text
-    reply.append(message1)
+    reply.append(message2)
     message2 = TextSendMessage(text = '查詢有關'+ dish +'的食譜')
     reply.append(message2)
     message3 = finding()
     reply.append(message3)
-    
+
     line_bot_api.reply_message(event.reply_token, reply)
+    
+def keyword(event):
+    key = event.message.text
+    if '找食譜' in key:
+        line_bot_api.reply_message(event.reply_token, 
+                                   [key,
+                                    find_recipes(event)])
+        
 # # 處理訊息
 # @handler.add(MessageEvent, message=TextMessage)
 # def handle_message(event):
