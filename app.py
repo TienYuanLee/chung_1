@@ -45,7 +45,7 @@ def callback():
     return 'OK'
 
     
-def find_recipes():
+def find():
     ingre = event.message.text
     return ingredient
     
