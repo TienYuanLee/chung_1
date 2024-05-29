@@ -56,95 +56,95 @@ def callback():
 #################
 
 
-# #################
-# def get_result(ingredient):
-#     def progress_bar(percentage, length):  # 進度條
-#     # 确保百分比在 0 到 100 之间
-#         if percentage < 0:
-#             percentage = 0
-#         elif percentage > 100:
-#             percentage = 100
-#     # 计算填充部分的长度
-#             filled_length = int(length * percentage // 100)
-#             bar = "■" * filled_length + "□" * (length - filled_length)
-#     # 輸出進度條
-#         return f"|{bar}|"
-    
-#     # out = '、'.join(ingredient.strip().split(" "))
-#     # print(f'幫你搜尋有關{out}的食譜喔 !')
-    
-
-#     url = "https://icook.tw/"
-#     driver = webdriver.Chrome()
-#     driver.get(url)
-#     sleep(2)
-#     search_box = driver.find_element(By.CLASS_NAME, "search-input")
-#     search_box.clear()
-#     search_box.send_keys(ingredient)
-#     search_box.send_keys(Keys.RETURN)
-#     sleep(2)
-#     original_html = driver.page_source
-
-
-#     soup = BeautifulSoup(original_html, "html.parser")
-#     recipe_list = []
-#     for i in range(2): #可以改變翻頁次數，每頁有18道菜
-#         recipes = soup.select('.browse-recipe-card')
-#         recipe_items = soup.find_all("li", class_="browse-recipe-item")
-#         for recipe in recipe_items:
-#             link_tag = recipe.find("a", class_="browse-recipe-link")
-#             if link_tag and link_tag.has_attr("href"):
-#                 link = link_tag["href"]
-#                 title = recipe.find('h2').get_text(strip=True)
-#                 ingredients = recipe.find('p').get_text(strip=True)
-#                 likes_elem = recipe.select_one('li.browse-recipe-meta-item[data-title*="讚"]')
-#                 time_elem = recipe.select_one('li.browse-recipe-meta-item[data-title*="烹飪時間"]')
-#                 like_count = 0
-#                 cook_time = "未知"
-#                 if likes_elem:
-#                     likes_text = likes_elem.get_text(strip=True).replace('讚', '').strip()
-#                     if likes_text.isdigit():
-#                         like_count = int(likes_text)
-#                 if time_elem:
-#                     cook_time = time_elem.get_text(strip=True).replace('烹飪時間', '').strip()
-#                 recipe_list.append({
-#                     "title": title,
-#                     "ingredients": list(ingredients.split("、")),
-#                     "likes": like_count,
-#                     "cook_time": cook_time,
-#                     "link": f"https://icook.tw{link}"
-#                 })
-#         try:
-#             next_button = driver.find_element(By.CSS_SELECTOR, 'li.pagination-tab.page--next a.pagination-tab-link')
-#             next_button.click()
-#             sleep(2)
-#             original_html = driver.page_source
-#             soup = BeautifulSoup(original_html, "html.parser")
-#         except:
-#             #print("已到最後一頁或找不到下一頁按鈕", e)
-#             break
-    
-#     recipe_list.sort(key=lambda x: x["likes"], reverse=True)
-#     top_recipes = recipe_list[:10]
-#     search_ingredient = list(search_ingredient.strip().split(" "))
-#     results = []
-#     for idx, recipe in enumerate(top_recipes, 1):
-#         complete_percent = int(
-#             round(len(search_ingredient) / len(recipe["ingredients"]), 2) * 100
-#         )
-#         left = len(recipe["ingredients"]) - len(search_ingredient)
-        
-#         result = (f"""{idx}. {recipe['title']}
-#     {recipe['likes']} 次讚 - 烹飪時間: {recipe['cook_time']}
-#     材料完成度： {complete_percent} % Complete - 差{left}樣 
-#     {progress_bar(complete_percent, length = 10)}
-#     {'、'.join(recipe["ingredients"])}
-# """)
-#         results.append(result)
-    
-    
-#     return top_recipes, results
 #################
+def get_result(ingredient):
+    def progress_bar(percentage, length):  # 進度條
+    # 确保百分比在 0 到 100 之间
+        if percentage < 0:
+            percentage = 0
+        elif percentage > 100:
+            percentage = 100
+    # 计算填充部分的长度
+            filled_length = int(length * percentage // 100)
+            bar = "■" * filled_length + "□" * (length - filled_length)
+    # 輸出進度條
+        return f"|{bar}|"
+    
+    # out = '、'.join(ingredient.strip().split(" "))
+    # print(f'幫你搜尋有關{out}的食譜喔 !')
+    
+
+    url = "https://icook.tw/"
+    driver = webdriver.Chrome()
+    driver.get(url)
+    sleep(2)
+    search_box = driver.find_element(By.CLASS_NAME, "search-input")
+    search_box.clear()
+    search_box.send_keys(ingredient)
+    search_box.send_keys(Keys.RETURN)
+    sleep(2)
+    original_html = driver.page_source
+
+
+    soup = BeautifulSoup(original_html, "html.parser")
+    recipe_list = []
+    for i in range(2): #可以改變翻頁次數，每頁有18道菜
+        recipes = soup.select('.browse-recipe-card')
+        recipe_items = soup.find_all("li", class_="browse-recipe-item")
+        for recipe in recipe_items:
+            link_tag = recipe.find("a", class_="browse-recipe-link")
+            if link_tag and link_tag.has_attr("href"):
+                link = link_tag["href"]
+                title = recipe.find('h2').get_text(strip=True)
+                ingredients = recipe.find('p').get_text(strip=True)
+                likes_elem = recipe.select_one('li.browse-recipe-meta-item[data-title*="讚"]')
+                time_elem = recipe.select_one('li.browse-recipe-meta-item[data-title*="烹飪時間"]')
+                like_count = 0
+                cook_time = "未知"
+                if likes_elem:
+                    likes_text = likes_elem.get_text(strip=True).replace('讚', '').strip()
+                    if likes_text.isdigit():
+                        like_count = int(likes_text)
+                if time_elem:
+                    cook_time = time_elem.get_text(strip=True).replace('烹飪時間', '').strip()
+                recipe_list.append({
+                    "title": title,
+                    "ingredients": list(ingredients.split("、")),
+                    "likes": like_count,
+                    "cook_time": cook_time,
+                    "link": f"https://icook.tw{link}"
+                })
+        try:
+            next_button = driver.find_element(By.CSS_SELECTOR, 'li.pagination-tab.page--next a.pagination-tab-link')
+            next_button.click()
+            sleep(2)
+            original_html = driver.page_source
+            soup = BeautifulSoup(original_html, "html.parser")
+        except:
+            #print("已到最後一頁或找不到下一頁按鈕", e)
+            break
+    
+    recipe_list.sort(key=lambda x: x["likes"], reverse=True)
+    top_recipes = recipe_list[:10]
+    search_ingredient = list(search_ingredient.strip().split(" "))
+    results = []
+    for idx, recipe in enumerate(top_recipes, 1):
+        complete_percent = int(
+            round(len(search_ingredient) / len(recipe["ingredients"]), 2) * 100
+        )
+        left = len(recipe["ingredients"]) - len(search_ingredient)
+        
+        result = (f"""{idx}. {recipe['title']}
+    {recipe['likes']} 次讚 - 烹飪時間: {recipe['cook_time']}
+    材料完成度： {complete_percent} % Complete - 差{left}樣 
+    {progress_bar(complete_percent, length = 10)}
+    {'、'.join(recipe["ingredients"])}
+""")
+        results.append(result)
+    
+    message = top_recipes + results
+    return message
+# ################
 # def finding(ingredient):
 #     message = TextSendMessage(get_result(ingredient))
 #     return message
@@ -156,9 +156,9 @@ def callback():
 def handle_message(event):
     ingredient = event.message.text
     message1 = TextSendMessage(text = ingredient)
-    # reci = get_result(ingredient)
-    # message2 = TextSendMessage(text = f'{reci}')
-    line_bot_api.reply_message(event.reply_token, message1)
+    message = get_result(ingredient)
+    message2 = TextSendMessage(text = message)
+    line_bot_api.reply_message(event.reply_token, [message1, message2])
 
 
 if __name__ == "__main__":
