@@ -101,7 +101,7 @@ def get_result(original_html,search_ingredient):
 
 
 #TemplateSendMessage - ButtonsTemplate (按鈕介面訊息)
-def finding(ingredient):
+def finding():
     ingredient = find()
     message = TextSendMessage(
         text = get_result(search(ingredient),ingredient)
