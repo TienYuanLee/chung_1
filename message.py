@@ -2,30 +2,11 @@
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
-
-from time import sleep
-from random import randint
-import pandas as pd
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
-from bs4 import BeautifulSoup
-import random
-
-from app import *
-# from selenium import webdriver
-# from linebot.models import *
-# from flex_msg import *
-# from config import *
-# import time
-# import random
-# import string
-
 driver = webdriver.Chrome()
 
 def search(ingredient):
+    # out = '、'.join(ingredient.strip().split(" "))
+    # print(f'幫你搜尋有關{out}的食譜喔 !')
     url = "https://icook.tw/"
     driver.get(url)
     sleep(2)
@@ -52,7 +33,7 @@ def progress_bar(percentage, length):  # 進度條
 def get_result(original_html,search_ingredient):
     soup = BeautifulSoup(original_html, "html.parser")
     recipe_list = []
-    while True:
+    for i in range(2): #可以改變翻頁次數，每頁有18道菜
         recipes = soup.select('.browse-recipe-card')
         recipe_items = soup.find_all("li", class_="browse-recipe-item")
         for recipe in recipe_items:
@@ -106,6 +87,45 @@ def get_result(original_html,search_ingredient):
         results.append(result)
     
     return top_recipes, results
+
+
+def selection(num, top_recipes):
+    selected_recipe = top_recipes[num - 1]
+    recipe_link = selected_recipe['link']
+    driver.get(recipe_link)
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "h1")))
+    page_source = driver.page_source
+    soup = BeautifulSoup(page_source, "html.parser")
+    recipe_title = soup.find('h1').get_text(strip=True)
+    ingredients_section = soup.find('div', class_='recipe-details-ingredients')
+    ingredients = []
+    if ingredients_section:
+        ingredient_items = ingredients_section.find_all('li', class_='ingredient')
+        for item in ingredient_items:
+            name = item.find('div', class_='ingredient-name').get_text(strip=True)
+            quantity = item.find('div', class_='ingredient-unit').get_text(strip=True)
+            ingredients.append(f"{name} {quantity}")
+    steps_section = soup.find('ul', class_='recipe-details-steps')
+    steps = []
+    if steps_section:
+        step_items = steps_section.find_all('li', class_='recipe-details-step-item')
+        for index, item in enumerate(step_items, start=1):
+            step_description = item.find('p', class_='recipe-step-description-content').get_text(strip=True)
+            steps.append(f"Step {index}: {step_description}")
+    
+    result = {
+        "title": recipe_title,
+        "cook_time": selected_recipe['cook_time'],
+        "ingredients": ingredients,
+        "steps": steps
+    }
+    
+    return result
+
+# n = input()
+# top_recipes, results = get_result(search(n),n)
+# for result in results:
+#     print(result)
 
 
 #TemplateSendMessage - ButtonsTemplate (按鈕介面訊息)
