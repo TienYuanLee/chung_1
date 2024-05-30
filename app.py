@@ -55,7 +55,7 @@ def handle_message(event):
     ingredient = event.message.text
     try:
         top_recipes, results = get_result(search(ingredient),ingredient)
-        message1 = result
+        message1 = results
     except:
         message1 = TextSendMessage(text = ingredient + 'error')
     
