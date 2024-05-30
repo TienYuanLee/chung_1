@@ -45,18 +45,21 @@ def callback():
 #################
 
 
+def find():
+    ingredient = event.message.text
+    return ingredient
+
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     ingredient = event.message.text
-    def find():
-        return ingredient
-    message1 = TextSendMessage(text = ingredient)
     try:
-        message2 = finding()
+        top_recipes, results = get_result(search(ingredient),ingredient)
+        message1 = result
     except:
-        message2 = TextSendMessage(text = 'error')
-    line_bot_api.reply_message(event.reply_token, [message1, message2])
+        message1 = TextSendMessage(text = ingredient + 'error')
+    
+    line_bot_api.reply_message(event.reply_token, message1)
     # except:
     #     ingredient = event.message.text
     #     message1 = TextSendMessage(text = ingredient + 'error')
