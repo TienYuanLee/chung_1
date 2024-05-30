@@ -87,13 +87,13 @@ def get_result(original_html,search_ingredient):
             round(len(search_ingredient) / len(recipe["ingredients"]), 2) * 100
         )
         left = len(recipe["ingredients"]) - len(search_ingredient)
-        
-        result = (f"""{idx}. {recipe['title']}
+        ############這裡改result########
+        result = TextSendMessage (text  = (f"""{idx}. {recipe['title']}
     {recipe['likes']} 次讚 - 烹飪時間: {recipe['cook_time']}
     材料完成度： {complete_percent} % Complete - 差{left}樣 
     {progress_bar(complete_percent, length = 10)}
     {'、'.join(recipe["ingredients"])}
-""")
+"""))
         results.append(result)
     
     return top_recipes, results
@@ -138,12 +138,12 @@ def selection(num, top_recipes):
 #     print(result)
 
 
-#TemplateSendMessage - ButtonsTemplate (按鈕介面訊息)
-def finding():
-    ingredient = find()
-    message = TextSendMessage(
-        text = get_result(search(ingredient),ingredient)
-    )
-    return message
+# #TemplateSendMessage - ButtonsTemplate (按鈕介面訊息)
+# def finding():
+#     ingredient = find()
+#     message = TextSendMessage(
+#         text = get_result(search(ingredient),ingredient)
+#     )
+#     return message
     
 #關於LINEBOT聊天內容範例
