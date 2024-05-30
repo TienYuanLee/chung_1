@@ -53,15 +53,20 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 
+
+
 #建立chrome設定
-chromeOption = webdriver.ChromeOptions()    #設定瀏覽器的user agent
-chromeOption.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0')
-chromeOption.add_argument("start-maximized")
-chromeOption.add_argument('--headless')
-chromeOption.add_argument('--no-sandbox')
-chromeOption.add_argument('--disable-dev-shm-usage')
-    #開啟Chrome瀏覽器
-driver = webdriver.Chrome(options=chromeOption)
+
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+
 # driver = webdriver.Chrome()
 
 def search(ingredient):
