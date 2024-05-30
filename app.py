@@ -93,7 +93,7 @@ def progress_bar(percentage, length):  # 進度條
 def get_result(original_html,search_ingredient):
     soup = BeautifulSoup(original_html, "html.parser")
     recipe_list = []
-    for i in range(2): #可以改變翻頁次數，每頁有18道菜
+    for i in range(1): #可以改變翻頁次數，每頁有18道菜
         recipes = soup.select('.browse-recipe-card')
         recipe_items = soup.find_all("li", class_="browse-recipe-item")
         for recipe in recipe_items:
@@ -119,15 +119,15 @@ def get_result(original_html,search_ingredient):
                     "cook_time": cook_time,
                     "link": f"https://icook.tw{link}"
                 })
-        try:
-            next_button = driver.find_element(By.CSS_SELECTOR, 'li.pagination-tab.page--next a.pagination-tab-link')
-            next_button.click()
-            sleep(2)
-            original_html = driver.page_source
-            soup = BeautifulSoup(original_html, "html.parser")
-        except Exception as e:
-            #print("已到最後一頁或找不到下一頁按鈕", e)
-            break
+        # try:
+        #     next_button = driver.find_element(By.CSS_SELECTOR, 'li.pagination-tab.page--next a.pagination-tab-link')
+        #     next_button.click()
+        #     sleep(2)
+        #     original_html = driver.page_source
+        #     soup = BeautifulSoup(original_html, "html.parser")
+        # except Exception as e:
+        #     #print("已到最後一頁或找不到下一頁按鈕", e)
+        #     break
     recipe_list.sort(key=lambda x: x["likes"], reverse=True)
     top_recipes = recipe_list[:10]
     search_ingredient = list(search_ingredient.strip().split(" "))
