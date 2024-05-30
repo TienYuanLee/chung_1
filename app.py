@@ -184,7 +184,8 @@ def handle_message(event):
     ingredient = event.message.text
     try:
         results = get_result(search(ingredient),ingredient)
-        message1 = results
+        message = results
+        message1 = TextSendMessage(text = '0')
     except:
         message1 = TextSendMessage(text = 'error')
     
