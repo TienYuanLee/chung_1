@@ -129,7 +129,7 @@ def get_result(original_html,search_ingredient):
         #     #print("已到最後一頁或找不到下一頁按鈕", e)
         #     break
     recipe_list.sort(key=lambda x: x["likes"], reverse=True)
-    top_recipes = recipe_list[:10]
+    top_recipes = recipe_list[:4]
     search_ingredient = list(search_ingredient.strip().split(" "))
     results = []
     for idx, recipe in enumerate(top_recipes, 1):
