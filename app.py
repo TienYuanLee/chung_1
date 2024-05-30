@@ -142,7 +142,6 @@ def get_result(original_html,search_ingredient):
     {recipe['likes']} 次讚 - 烹飪時間: {recipe['cook_time']}
     材料完成度： {complete_percent} % Complete - 差{left}樣 
     {progress_bar(complete_percent, length = 10)}
-    {'、'.join(recipe["ingredients"])}
 """))
         results.append(result)
     
