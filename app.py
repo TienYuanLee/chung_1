@@ -133,10 +133,16 @@ def get_result(original_html,search_ingredient):
     search_ingredient = list(search_ingredient.strip().split(" "))
     results = []
     for idx, recipe in enumerate(top_recipes, 1):
+        have_count = 0
+        for ing in search_ingredient:
+            if ing in recipe["ingredients"]:
+                have_count += 1
+
         complete_percent = int(
-            round(len(search_ingredient) / len(recipe["ingredients"]), 2) * 100
+            round(have_count/ len(recipe["ingredients"]), 2) * 100
         )
-        left = len(recipe["ingredients"]) - len(search_ingredient)
+        left = len(recipe["ingredients"]) - have_count
+        
         ############這裡改result########
         result = TextSendMessage (text  = (f"""{idx}. {recipe['title']}
     {recipe['likes']} 次讚 - 烹飪時間: {recipe['cook_time']}
