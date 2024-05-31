@@ -3,3 +3,4 @@ line-bot-sdk
 beautifulsoup4
 selenium
 gunicorn 
+webdriver
